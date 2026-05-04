@@ -937,3 +937,90 @@ Dadurch kann das Programm mit Gradle gestartet werden:
 
 Beim Start gibt das Programm die verwendete Java-Version aus. Damit kann ich überprüfen, dass das Projekt mit Java 25 läuft.
 
+
+
+---
+
+## 13. Spotless
+
+Ich habe das Java-Basisprojekt um Spotless erweitert. Spotless wird verwendet, um Quellcode automatisch zu formatieren und Formatierungsregeln zu prüfen.
+
+Dazu habe ich in `build.gradle` das Spotless-Plugin ergänzt:
+
+```groovy
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.diffplug.spotless' version '8.4.0'
+}
+```
+
+Anschließend habe ich Spotless für Java konfiguriert:
+
+```groovy
+spotless {
+    java {
+        googleJavaFormat()
+        target 'src/**/*.java'
+    }
+}
+```
+
+`googleJavaFormat()` legt fest, dass Java-Code nach dem Google-Java-Format formatiert wird.
+
+---
+
+### 13.1 Formatierungsfehler prüfen
+
+Zum Testen habe ich `Main.java` absichtlich schlecht formatiert:
+
+```java
+public class Main {
+public static void main(String[] args){System.out.println(System.getProperty("java.version"));}
+}
+```
+
+Danach habe ich Spotless prüfen lassen:
+
+```bash
+.\gradlew spotlessCheck
+```
+
+Dabei erkennt Spotless, dass die Datei nicht korrekt formatiert ist.
+
+---
+
+### 13.2 Formatierung automatisch anwenden
+
+Mit folgendem Befehl habe ich die Formatierung automatisch korrigiert:
+
+```bash
+.\gradlew spotlessApply
+```
+
+Danach sieht `Main.java` formatiert aus:
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(System.getProperty("java.version"));
+  }
+}
+```
+
+Anschließend habe ich erneut geprüft:
+
+```bash
+.\gradlew spotlessCheck
+```
+
+Der Check war danach erfolgreich.
+
+Zusätzlich habe ich das Projekt erneut gestartet:
+
+```bash
+.\gradlew run
+```
+
+Damit ist gezeigt, dass Spotless funktioniert und das Projekt weiterhin gebaut und gestartet werden kann.
+
