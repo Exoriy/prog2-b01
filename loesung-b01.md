@@ -433,9 +433,25 @@ Durch diesen Commit sind Statuswerte und Ausrüstung getrennt. `stats.md` enthä
 
 
 
+## 7. Commit-Meldungen diskutieren
+
+### Commit `46530b6`
+
+Gut ist der Verweis auf `#300` und das erkennbare Thema `Layer system`. Die Meldung ist aber zu ungenau, weil Begriffe wie `rebase` oder `spotlessApply` nur Git-Arbeitsschritte beschreiben und die fachliche Änderung nicht erklären.
+
+**Besser wäre:** `Refactor controller layer system`
+
+### Commit `3e37472`
+
+Gut sind der Bereich `[GAME]`, der Verweis auf `#1090` und der Bezug zu Items und Crafting. Problematisch ist das ungenaue Wort `better`, da der Commit mehrere Änderungen wie Crafting-Rezepte, `ItemDataGenerator` und `onUse`-Methoden enthält.
+
+**Besser wäre:** `[GAME] Add basic health potion crafting recipes`
+
+
+
 ---
 
-## 7. Gradle-Projekt über die Konsole
+## 8. Gradle-Projekt über die Konsole
 
 Ich habe über die Konsole ein neues Gradle-Projekt für eine Java-Applikation erstellt.
 
@@ -471,7 +487,7 @@ Der Gradle Wrapper ist wichtig, weil dadurch das Projekt mit einer passenden Gra
 
 ---
 
-### 7.1 Verfügbare Gradle-Tasks anzeigen
+### 8.1 Verfügbare Gradle-Tasks anzeigen
 
 Mit folgendem Befehl habe ich die verfügbaren Tasks angezeigt:
 
@@ -498,7 +514,7 @@ Für eine ausführlichere Liste kann man verwenden:
 
 ---
 
-### 7.2 Anwendung starten
+### 8.2 Anwendung starten
 
 Die Anwendung habe ich mit folgendem Befehl gestartet:
 
@@ -516,7 +532,7 @@ Damit ist gezeigt, dass die Java-Anwendung erfolgreich gebaut und gestartet werd
 
 ---
 
-### 7.3 Tests ausführen
+### 8.3 Tests ausführen
 
 Die Tests habe ich mit folgendem Befehl ausgeführt:
 
@@ -532,7 +548,7 @@ BUILD SUCCESSFUL
 
 ---
 
-### 7.4 Projekt bauen
+### 8.4 Projekt bauen
 
 Das gesamte Projekt habe ich mit folgendem Befehl gebaut:
 
@@ -551,7 +567,7 @@ Der Task `build` ist besonders wichtig, weil er das Projekt nicht nur kompiliert
 
 ---
 
-## 8. Projektlayout des Gradle-Projekts
+## 9. Projektlayout des Gradle-Projekts
 
 Das mit `gradle init` erzeugte Projekt hat folgende Grundstruktur:
 
@@ -604,7 +620,7 @@ Dadurch kann Gradle automatisch unterscheiden, welche Dateien zur Anwendung geh�
 
 ---
 
-## 9. Buildskript erklären
+## 10. Buildskript erklären
 
 Das wichtigste Buildskript befindet sich hier:
 
@@ -616,7 +632,7 @@ Dort wird beschrieben, wie das Java-Projekt gebaut, getestet und gestartet wird.
 
 ---
 
-### 9.1 `plugins`
+### 10.1 `plugins`
 
 Im Abschnitt `plugins` werden Gradle-Plugins aktiviert.
 
@@ -634,7 +650,7 @@ Der Task `run` wird verwendet, um die Anwendung direkt mit Gradle zu starten.
 
 ---
 
-### 9.2 `repositories`
+### 10.2 `repositories`
 
 Im Abschnitt `repositories` wird festgelegt, von wo Gradle externe Bibliotheken herunterladen darf.
 
@@ -650,7 +666,7 @@ repositories {
 
 ---
 
-### 9.3 `dependencies`
+### 10.3 `dependencies`
 
 Im Abschnitt `dependencies` werden externe Bibliotheken eingetragen, die das Projekt benötigt.
 
@@ -677,7 +693,7 @@ bedeutet das, dass die Bibliothek `guava` für den normalen Anwendungscode verwe
 
 ---
 
-### 9.4 `java`
+### 10.4 `java`
 
 Im Abschnitt `java` wird die Java-Version für das Projekt festgelegt.
 
@@ -697,7 +713,7 @@ Das ist wichtig, weil die Aufgabe Java SE Development Kit 25 verlangt.
 
 ---
 
-### 9.5 `application`
+### 10.5 `application`
 
 Im Abschnitt `application` wird die Hauptklasse der Anwendung festgelegt.
 
@@ -719,7 +735,7 @@ Der Start erfolgt mit:
 
 ---
 
-### 9.6 `test`
+### 10.6 `test`
 
 Der Test-Task wird so konfiguriert, dass JUnit verwendet wird.
 
@@ -741,7 +757,7 @@ Die Tests starte ich mit:
 
 ---
 
-## 10. Zusammenhang wichtiger Gradle-Tasks
+## 11. Zusammenhang wichtiger Gradle-Tasks
 
 Einige wichtige Tasks hängen logisch zusammen.
 
@@ -776,7 +792,7 @@ Befehl:
 
 ---
 
-## 11. Gradle-Projekt in IntelliJ IDEA öffnen
+## 12. Gradle-Projekt in IntelliJ IDEA öffnen
 
 Ich habe das über die Konsole erzeugte Gradle-Projekt in IntelliJ IDEA geöffnet.
 
@@ -792,7 +808,7 @@ Nach dem Öffnen wurde das Projekt als Gradle-Projekt importiert.
 
 ---
 
-### 11.1 Gradle-Einstellungen in IntelliJ
+### 12.1 Gradle-Einstellungen in IntelliJ
 
 In IntelliJ habe ich die Gradle-Einstellungen geprüft:
 
@@ -813,7 +829,7 @@ Der Gradle Wrapper ist sinnvoll, weil dadurch die im Projekt konfigurierte Gradl
 
 ---
 
-### 11.2 Gradle-Tasks in der IDE
+### 12.2 Gradle-Tasks in der IDE
 
 Die Gradle-Tasks können in IntelliJ über das Gradle-Toolfenster ausgeführt werden.
 
@@ -848,7 +864,7 @@ Damit ist gezeigt, dass das Gradle-Projekt sowohl über die Konsole als auch üb
 
 ---
 
-## 12. Java-Basisprojekt für das Semester
+## 13. Java-Basisprojekt für das Semester
 
 Ich habe in IntelliJ IDEA ein neues Java-Projekt mit Gradle-Support erstellt.
 
@@ -872,7 +888,7 @@ Beim Erstellen des Projekts habe ich folgende Einstellungen verwendet:
 
 ---
 
-### 12.1 Java-Version prüfen
+### 13.1 Java-Version prüfen
 
 In der Konsole kann ich die Java-Version mit folgendem Befehl prüfen:
 
@@ -900,7 +916,7 @@ public class Main {
 
 ---
 
-### 12.2 Gradle-Konfiguration
+### 13.2 Gradle-Konfiguration
 
 Das Projekt verwendet Gradle. In `build.gradle` ist Java 25 als Toolchain konfiguriert:
 
@@ -941,7 +957,7 @@ Beim Start gibt das Programm die verwendete Java-Version aus. Damit kann ich üb
 
 ---
 
-## 13. Spotless
+## 14. Spotless
 
 Ich habe das Java-Basisprojekt um Spotless erweitert. Spotless wird verwendet, um Quellcode automatisch zu formatieren und Formatierungsregeln zu prüfen.
 
@@ -970,7 +986,7 @@ spotless {
 
 ---
 
-### 13.1 Formatierungsfehler prüfen
+### 14.1 Formatierungsfehler prüfen
 
 Zum Testen habe ich `Main.java` absichtlich schlecht formatiert:
 
@@ -990,7 +1006,7 @@ Dabei erkennt Spotless, dass die Datei nicht korrekt formatiert ist.
 
 ---
 
-### 13.2 Formatierung automatisch anwenden
+### 14.2 Formatierung automatisch anwenden
 
 Mit folgendem Befehl habe ich die Formatierung automatisch korrigiert:
 
@@ -1023,4 +1039,3 @@ Zusätzlich habe ich das Projekt erneut gestartet:
 ```
 
 Damit ist gezeigt, dass Spotless funktioniert und das Projekt weiterhin gebaut und gestartet werden kann.
-
