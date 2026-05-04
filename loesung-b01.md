@@ -430,3 +430,123 @@ git log --oneline -8
 ```
 
 Durch diesen Commit sind Statuswerte und Ausrüstung getrennt. `stats.md` enthält nur noch Werte wie `health`, `experience` und `hunger`. Die Ausrüstung steht jetzt in `gear.md`.
+
+
+
+---
+
+## 7. Gradle-Projekt über die Konsole
+
+Ich habe über die Konsole ein neues Gradle-Projekt für eine Java-Applikation erstellt.
+
+Dafür habe ich zuerst einen neuen Ordner angelegt:
+
+```bash
+cd D:\aLearning\prog2
+mkdir prog2-gradle-demo
+cd prog2-gradle-demo
+```
+
+Danach habe ich das Gradle-Projekt mit `gradle init` erzeugt:
+
+```bash
+gradle init --type java-application --dsl groovy --test-framework junit-jupiter --project-name prog2-gradle-demo --package prog2.demo
+```
+
+Bei den Rückfragen habe ich folgende Optionen gewählt:
+
+```text
+Java version: 25
+Application structure: Single application project
+Generate build using new APIs and behavior: no
+```
+
+Nach der Erstellung habe ich nicht mehr den global installierten Gradle-Befehl `gradle`, sondern den Gradle Wrapper verwendet:
+
+```bash
+.\gradlew
+```
+
+Der Gradle Wrapper ist wichtig, weil dadurch das Projekt mit einer passenden Gradle-Version gebaut werden kann, auch wenn auf einem anderen Rechner Gradle nicht global installiert ist.
+
+---
+
+### 8.1 Verfügbare Gradle-Tasks anzeigen
+
+Mit folgendem Befehl habe ich die verfügbaren Tasks angezeigt:
+
+```bash
+.\gradlew tasks
+```
+
+Dabei wurden unter anderem folgende Tasks angezeigt:
+
+| Task | Bedeutung |
+|---|---|
+| `run` | startet die Anwendung |
+| `build` | baut das Projekt und führt Tests aus |
+| `test` | führt die Tests aus |
+| `clean` | löscht generierte Build-Dateien |
+| `jar` | erzeugt eine JAR-Datei |
+| `javadoc` | erzeugt die API-Dokumentation |
+
+Für eine ausführlichere Liste kann man verwenden:
+
+```bash
+.\gradlew tasks --all
+```
+
+---
+
+### 8.2 Anwendung starten
+
+Die Anwendung habe ich mit folgendem Befehl gestartet:
+
+```bash
+.\gradlew :app:run
+```
+
+Die Ausgabe war:
+
+```text
+Hello World!
+```
+
+Damit ist gezeigt, dass die Java-Anwendung erfolgreich gebaut und gestartet werden kann.
+
+---
+
+### 8.3 Tests ausführen
+
+Die Tests habe ich mit folgendem Befehl ausgeführt:
+
+```bash
+.\gradlew :app:test
+```
+
+Der Build war erfolgreich:
+
+```text
+BUILD SUCCESSFUL
+```
+
+---
+
+### 8.4 Projekt bauen
+
+Das gesamte Projekt habe ich mit folgendem Befehl gebaut:
+
+```bash
+.\gradlew build
+```
+
+Auch dieser Befehl wurde erfolgreich ausgeführt:
+
+```text
+BUILD SUCCESSFUL
+```
+
+Der Task `build` ist besonders wichtig, weil er das Projekt nicht nur kompiliert, sondern auch die Tests ausführt.
+
+
+
