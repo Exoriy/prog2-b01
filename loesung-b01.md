@@ -265,3 +265,168 @@ hunger: 10 -> 0
 ```
 
 Das bedeutet: Markus isst das Brot und trinkt den Heiltrank. Danach ist er nicht mehr hungrig und seine Gesundheit ist wiederhergestellt.
+
+
+
+---
+
+## 3. Letzten Commit `tag 04.5` ändern
+
+Beim letzten Commit `tag 04.5` wurden versehentlich zu wenig `experience` Punkte eingetragen. Deshalb ändere ich den letzten Commit mit `git commit --amend`.
+
+Vorher stand in `stats.md`:
+
+```markdown
+| experience | 40 |
+```
+
+Ich ändere den Wert auf:
+
+```markdown
+| experience | 42 |
+```
+
+Befehle:
+
+```bash
+git checkout master
+notepad stats.md
+git diff
+git add stats.md
+git commit --amend --no-edit
+```
+
+Mit `git commit --amend --no-edit` wird der letzte Commit geändert, aber die Commit-Meldung `tag 04.5` bleibt erhalten.
+
+Danach überprüfe ich die Änderung mit:
+
+```bash
+git log --oneline -5
+type stats.md
+```
+
+
+---
+
+## 4. Neuer Commit `tag 04.6`
+
+Für `tag 04.6` ändere ich nur die Datei `questlog.md`.
+
+Neuer Text am Ende von `questlog.md`:
+
+```markdown
+Markus hörte in der Ferne ein leises Klingeln. Vorsichtig folgte er dem Geräusch durch einen schmalen Gang und entdeckte eine alte, verfallene Steintreppe, die noch tiefer in das Dungeon führte.
+```
+
+Befehle:
+
+```bash
+git status
+notepad questlog.md
+git diff --stat
+git add questlog.md
+git commit -m "tag 04.6"
+```
+
+Mit `git diff --stat` überprüfe ich vorher, dass wirklich nur `questlog.md` geändert wurde.
+
+
+
+---
+
+## 5. Neuer Commit `tag 04.7`
+
+Für `tag 04.7` führe ich die Geschichte weiter fort. Diesmal ändere ich mehrere Dateien in einem gemeinsamen Commit, weil die Änderungen inhaltlich zusammengehören.
+
+Änderung in `questlog.md`:
+
+```markdown
+Am Fuße der Treppe stand Markus plötzlich einen Boss gegenüber. Der Kampf war kurz, aber heftig. Markus ging als Sieger hervor, erlitt jedoch leichte Verletzungen und entdeckte in der Nähe ein Schlüssel.
+```
+
+Änderung in `stats.md`:
+
+```markdown
+| health | 7 |
+| experience | 45 |
+| hunger | 2 |
+```
+
+Begründung:
+
+- Markus wurde im Kampf verletzt, deshalb sinkt `health`.
+- Markus gewinnt den Kampf, deshalb steigt `experience`.
+- Die Reise geht weiter, deshalb steigt `hunger`.
+
+Änderung in `rucksack.md`:
+
+```markdown
+| 1 | 1 Schlüssel |
+```
+
+Befehle:
+
+```bash
+git status
+notepad questlog.md
+notepad stats.md
+notepad rucksack.md
+git diff --stat
+git add questlog.md stats.md rucksack.md
+git commit -m "tag 04.7"
+```
+
+Mit `git diff --stat` überprüfe ich, dass die drei gewünschten Dateien geändert wurden. Danach werden alle drei Änderungen gemeinsam in einem Commit gespeichert.
+
+
+
+---
+
+## 6. Neuer Commit `tag 04.8`: Ausrüstung aus `stats.md` auslagern
+
+Bisher stehen Statuspunkte und Ausrüstung gemeinsam in `stats.md`. Das ist unübersichtlich. Deshalb verschiebe ich die Ausrüstung in eine neue Datei `gear.md`.
+
+Vorher enthält `stats.md` auch:
+
+```markdown
+| weapon | sword (3 dmg) |
+| armor | light (2 dmg) |
+```
+
+Diese Zeilen entferne ich aus `stats.md`.
+
+Danach enthält `stats.md` nur noch die Statuswerte:
+
+```markdown
+# Stats
+
+| Property | Value |
+|------------|---------------|
+| health | 7 |
+| experience | 45 |
+| hunger | 2 |
+```
+
+Neue Datei `gear.md`:
+
+```markdown
+# Gear
+
+| Property | Value |
+|------------|---------------|
+| weapon | sword (3 dmg) |
+| armor | light (2 dmg) |
+```
+
+Befehle:
+
+```bash
+git status
+notepad stats.md
+notepad gear.md
+git add stats.md gear.md
+git commit -m "tag 04.8"
+git log --oneline -8
+```
+
+Durch diesen Commit sind Statuswerte und Ausrüstung getrennt. `stats.md` enthält nur noch Werte wie `health`, `experience` und `hunger`. Die Ausrüstung steht jetzt in `gear.md`.
