@@ -772,3 +772,75 @@ Befehl:
 ```bash
 .\gradlew build
 ```
+
+
+---
+
+## 11. Gradle-Projekt in IntelliJ IDEA öffnen
+
+Ich habe das über die Konsole erzeugte Gradle-Projekt in IntelliJ IDEA geöffnet.
+
+Dafür habe ich in IntelliJ folgenden Weg verwendet:
+
+```text
+File -> Open -> D:\aLearning\prog2\prog2-b01\gradle-demo
+```
+
+Wichtig ist, dass der Projektordner geöffnet wird und nicht nur der Ordner `app` oder `src`.
+
+Nach dem Öffnen wurde das Projekt als Gradle-Projekt importiert.
+
+---
+
+### 11.1 Gradle-Einstellungen in IntelliJ
+
+In IntelliJ habe ich die Gradle-Einstellungen geprüft:
+
+```text
+File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle
+```
+
+Dabei sind folgende Einstellungen wichtig:
+
+| Einstellung | Wert |
+|---|---|
+| Build and run using | Gradle |
+| Run tests using | Gradle |
+| Gradle JVM | JDK 25 |
+| Use Gradle from | Gradle Wrapper |
+
+Der Gradle Wrapper ist sinnvoll, weil dadurch die im Projekt konfigurierte Gradle-Version verwendet wird.
+
+---
+
+### 11.2 Gradle-Tasks in der IDE
+
+Die Gradle-Tasks können in IntelliJ über das Gradle-Toolfenster ausgeführt werden.
+
+Dort gibt es zum Beispiel folgende Task-Gruppen:
+
+| Gruppe | Beispiele |
+|---|---|
+| `application` | `run` |
+| `build` | `build`, `clean`, `jar` |
+| `verification` | `test` |
+| `help` | `tasks` |
+
+Ich habe in IntelliJ folgende Tasks ausgeführt:
+
+```text
+application -> run
+verification -> test
+build -> build
+```
+
+Die Anwendung wurde erfolgreich gestartet und hat ausgegeben:
+
+```text
+Hello World!
+```
+
+Auch die Tests und der Build wurden erfolgreich ausgeführt.
+
+Damit ist gezeigt, dass das Gradle-Projekt sowohl über die Konsole als auch über IntelliJ IDEA mit Gradle verwendet werden kann.
+
