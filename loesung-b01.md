@@ -844,3 +844,96 @@ Auch die Tests und der Build wurden erfolgreich ausgeführt.
 
 Damit ist gezeigt, dass das Gradle-Projekt sowohl über die Konsole als auch über IntelliJ IDEA mit Gradle verwendet werden kann.
 
+
+
+---
+
+## 12. Java-Basisprojekt für das Semester
+
+Ich habe in IntelliJ IDEA ein neues Java-Projekt mit Gradle-Support erstellt.
+
+Projektpfad:
+
+```text
+D:\aLearning\prog2\basisprojekt
+```
+
+Der Pfad enthält keine Leerzeichen und keine problematischen Sonderzeichen.
+
+Beim Erstellen des Projekts habe ich folgende Einstellungen verwendet:
+
+| Einstellung | Wert |
+|---|---|
+| Language | Java |
+| Build system | Gradle |
+| Gradle DSL | Groovy |
+| JDK | 25 |
+| Projektname | `basisprojekt` |
+
+---
+
+### 12.1 Java-Version prüfen
+
+In der Konsole kann ich die Java-Version mit folgendem Befehl prüfen:
+
+```bash
+java -version
+```
+
+Außerdem habe ich im Projekt ein kleines Programm erstellt, das die verwendete Java-Version ausgibt.
+
+Datei:
+
+```text
+src/main/java/Main.java
+```
+
+Inhalt:
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(System.getProperty("java.version"));
+  }
+}
+```
+
+---
+
+### 12.2 Gradle-Konfiguration
+
+Das Projekt verwendet Gradle. In `build.gradle` ist Java 25 als Toolchain konfiguriert:
+
+```groovy
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+```
+
+Außerdem wird das `application`-Plugin verwendet:
+
+```groovy
+plugins {
+    id 'java'
+    id 'application'
+}
+```
+
+Die Hauptklasse wird so festgelegt:
+
+```groovy
+application {
+    mainClass = 'Main'
+}
+```
+
+Dadurch kann das Programm mit Gradle gestartet werden:
+
+```bash
+.\gradlew run
+```
+
+Beim Start gibt das Programm die verwendete Java-Version aus. Damit kann ich überprüfen, dass das Projekt mit Java 25 läuft.
+
