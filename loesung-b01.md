@@ -471,7 +471,7 @@ Der Gradle Wrapper ist wichtig, weil dadurch das Projekt mit einer passenden Gra
 
 ---
 
-### 8.1 Verfügbare Gradle-Tasks anzeigen
+### 7.1 Verfügbare Gradle-Tasks anzeigen
 
 Mit folgendem Befehl habe ich die verfügbaren Tasks angezeigt:
 
@@ -498,7 +498,7 @@ Für eine ausführlichere Liste kann man verwenden:
 
 ---
 
-### 8.2 Anwendung starten
+### 7.2 Anwendung starten
 
 Die Anwendung habe ich mit folgendem Befehl gestartet:
 
@@ -516,7 +516,7 @@ Damit ist gezeigt, dass die Java-Anwendung erfolgreich gebaut und gestartet werd
 
 ---
 
-### 8.3 Tests ausführen
+### 7.3 Tests ausführen
 
 Die Tests habe ich mit folgendem Befehl ausgeführt:
 
@@ -532,7 +532,7 @@ BUILD SUCCESSFUL
 
 ---
 
-### 8.4 Projekt bauen
+### 7.4 Projekt bauen
 
 Das gesamte Projekt habe ich mit folgendem Befehl gebaut:
 
@@ -549,4 +549,226 @@ BUILD SUCCESSFUL
 Der Task `build` ist besonders wichtig, weil er das Projekt nicht nur kompiliert, sondern auch die Tests ausführt.
 
 
+---
 
+## 8. Projektlayout des Gradle-Projekts
+
+Das mit `gradle init` erzeugte Projekt hat folgende Grundstruktur:
+
+```text
+prog2-gradle-demo
+├── app
+│   ├── build.gradle
+│   └── src
+│       ├── main
+│       │   └── java
+│       │       └── prog2
+│       │           └── demo
+│       │               └── App.java
+│       └── test
+│           └── java
+│               └── prog2
+│                   └── demo
+│                       └── AppTest.java
+├── gradle
+│   ├── libs.versions.toml
+│   └── wrapper
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── gradle.properties
+```
+
+Die wichtigsten Dateien und Ordner haben folgende Bedeutung:
+
+| Datei / Ordner | Bedeutung |
+|---|---|
+| `settings.gradle` | beschreibt das Gradle-Projekt und bindet das Teilprojekt `app` ein |
+| `app/build.gradle` | enthält die Build-Konfiguration für die Java-Applikation |
+| `app/src/main/java` | enthält den eigentlichen Java-Quellcode |
+| `app/src/test/java` | enthält die Testklassen |
+| `App.java` | enthält das Beispielprogramm |
+| `AppTest.java` | enthält einen Beispieltest |
+| `gradlew` | Gradle Wrapper für Linux/macOS |
+| `gradlew.bat` | Gradle Wrapper für Windows |
+| `gradle/wrapper` | enthält die Wrapper-Konfiguration |
+| `gradle/libs.versions.toml` | enthält zentral definierte Versionen von Abhängigkeiten |
+| `gradle.properties` | enthält Gradle-Einstellungen für das Projekt |
+
+Der wichtigste Unterschied ist:
+
+- Produktivcode liegt unter `src/main/java`.
+- Testcode liegt unter `src/test/java`.
+
+Dadurch kann Gradle automatisch unterscheiden, welche Dateien zur Anwendung gehören und welche Dateien nur für Tests verwendet werden.
+
+---
+
+## 9. Buildskript erklären
+
+Das wichtigste Buildskript befindet sich hier:
+
+```text
+app/build.gradle
+```
+
+Dort wird beschrieben, wie das Java-Projekt gebaut, getestet und gestartet wird.
+
+---
+
+### 9.1 `plugins`
+
+Im Abschnitt `plugins` werden Gradle-Plugins aktiviert.
+
+Beispiel:
+
+```groovy
+plugins {
+    id 'application'
+}
+```
+
+Das Plugin `application` macht aus dem Projekt eine ausführbare Java-Anwendung. Dadurch stehen unter anderem Tasks wie `run`, `distZip`, `distTar` und `installDist` zur Verfügung.
+
+Der Task `run` wird verwendet, um die Anwendung direkt mit Gradle zu starten.
+
+---
+
+### 9.2 `repositories`
+
+Im Abschnitt `repositories` wird festgelegt, von wo Gradle externe Bibliotheken herunterladen darf.
+
+Beispiel:
+
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
+`mavenCentral()` bedeutet, dass Gradle Abhängigkeiten aus dem Maven Central Repository herunterladen kann.
+
+---
+
+### 9.3 `dependencies`
+
+Im Abschnitt `dependencies` werden externe Bibliotheken eingetragen, die das Projekt benötigt.
+
+Beispiel:
+
+```groovy
+dependencies {
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+```
+
+`testImplementation` bedeutet, dass diese Abhängigkeit nur für Tests verwendet wird.
+
+JUnit Jupiter wird für die Unit Tests verwendet.
+
+Falls zusätzlich eine Zeile wie diese vorhanden ist:
+
+```groovy
+implementation libs.guava
+```
+
+bedeutet das, dass die Bibliothek `guava` für den normalen Anwendungscode verwendet werden darf.
+
+---
+
+### 9.4 `java`
+
+Im Abschnitt `java` wird die Java-Version für das Projekt festgelegt.
+
+Beispiel:
+
+```groovy
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+```
+
+Damit wird festgelegt, dass das Projekt mit Java 25 gebaut werden soll.
+
+Das ist wichtig, weil die Aufgabe Java SE Development Kit 25 verlangt.
+
+---
+
+### 9.5 `application`
+
+Im Abschnitt `application` wird die Hauptklasse der Anwendung festgelegt.
+
+Beispiel:
+
+```groovy
+application {
+    mainClass = 'prog2.demo.App'
+}
+```
+
+Die Klasse `prog2.demo.App` enthält die `main`-Methode. Wenn ich den Task `run` ausführe, startet Gradle genau diese Klasse.
+
+Der Start erfolgt mit:
+
+```bash
+.\gradlew :app:run
+```
+
+---
+
+### 9.6 `test`
+
+Der Test-Task wird so konfiguriert, dass JUnit verwendet wird.
+
+Beispiel:
+
+```groovy
+tasks.named('test') {
+    useJUnitPlatform()
+}
+```
+
+`useJUnitPlatform()` ist notwendig, damit JUnit Jupiter Tests korrekt ausgeführt werden.
+
+Die Tests starte ich mit:
+
+```bash
+.\gradlew :app:test
+```
+
+---
+
+## 10. Zusammenhang wichtiger Gradle-Tasks
+
+Einige wichtige Tasks hängen logisch zusammen.
+
+| Task | Bedeutung |
+|---|---|
+| `run` | startet die Anwendung |
+| `test` | führt die Tests aus |
+| `jar` | erstellt eine JAR-Datei |
+| `assemble` | erzeugt die Build-Artefakte |
+| `check` | führt Prüfungen aus, zum Beispiel Tests |
+| `build` | führt `assemble` und `check` aus |
+| `clean` | löscht den Build-Ordner |
+
+Der Zusammenhang ist ungefähr:
+
+```text
+build
+├── assemble
+│   └── jar
+└── check
+    └── test
+```
+
+Das bedeutet: Wenn ich `build` ausführe, wird das Projekt gebaut und getestet.
+
+Befehl:
+
+```bash
+.\gradlew build
+```
